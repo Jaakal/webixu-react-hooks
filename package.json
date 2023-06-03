@@ -1,6 +1,6 @@
 {
   "name": "webixu-react-hooks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Collection of React hooks",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -30,5 +30,8 @@
   },
   "peerDependencies": {
     "react": "^18.0.0"
+  },
+  "dependencies": {
+    "webixu-react-utils": "^1.0.1"
   }
 }

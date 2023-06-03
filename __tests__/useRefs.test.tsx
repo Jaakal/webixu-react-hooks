@@ -1,7 +1,8 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
-import { useRefs, RefObjects } from '../src/useRefs';
+import { useRefs } from '../src/useRefs';
+import { RefObjects } from 'webixu-react-utils/lib/destructureRefs';
 
 type Refs = {
   element: HTMLDivElement;
@@ -17,9 +18,18 @@ describe('useRefs', () => {
       refs = useRefs<Refs>();
 
       return (
-        <div data-testid='element' ref={refs.element}>
-          <input data-testid='input-1' ref={refs.input1} />
-          <input data-testid='input-2' ref={refs.input2} />
+        <div
+          data-testid='element'
+          ref={refs.element}
+        >
+          <input
+            data-testid='input-1'
+            ref={refs.input1}
+          />
+          <input
+            data-testid='input-2'
+            ref={refs.input2}
+          />
         </div>
       );
     };
