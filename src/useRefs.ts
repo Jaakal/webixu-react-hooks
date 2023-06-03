@@ -16,7 +16,7 @@ type ArrayRefs<T> = {
 };
 
 export const useRefs = <T extends {}>(
-  ...args: IsEmptyType<ArrayRefs<T>> extends true ? never : Array<ArrayRefs<T>>
+  ...args: IsEmptyType<ArrayRefs<T>> extends true ? never : [ArrayRefs<T>]
 ): RefObjects<T> => {
   const refObjects = useRef<RefObjects<T>>(
     new Proxy({} as RefObjects<T>, {
