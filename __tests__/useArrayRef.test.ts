@@ -5,7 +5,7 @@ describe('useArrayRef', () => {
   it('should add elements to the array and return the updated array', () => {
     const { result } = renderHook(() => useArrayRef<number>());
 
-    expect(result.current[0]).toEqual([]);
+    expect(result.current[0].current).toEqual([]);
 
     act(() => {
       result.current[1](1);
@@ -13,13 +13,13 @@ describe('useArrayRef', () => {
       result.current[1](3);
     });
 
-    expect(result.current[0]).toEqual([1, 2, 3]);
+    expect(result.current[0].current).toEqual([1, 2, 3]);
   });
 
   it('should remove elements from the array when the returned function is called', () => {
     const { result } = renderHook(() => useArrayRef<number>());
 
-    expect(result.current[0]).toEqual([]);
+    expect(result.current[0].current).toEqual([]);
 
     act(() => {
       const removeFromRefs = result.current[1](1);
@@ -29,6 +29,6 @@ describe('useArrayRef', () => {
       removeFromRefs(); // Remove element 1
     });
 
-    expect(result.current[0]).toEqual([2, 3]);
+    expect(result.current[0].current).toEqual([2, 3]);
   });
 });

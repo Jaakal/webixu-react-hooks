@@ -1,7 +1,7 @@
 import { useRef, useCallback } from 'react';
 
 export const useArrayRef = <T extends unknown>(): [
-  Array<T>,
+  React.RefObject<Array<T>>,
   (element: T) => () => void
 ] => {
   const refsArray = useRef<Array<T>>([]);
@@ -14,5 +14,5 @@ export const useArrayRef = <T extends unknown>(): [
     };
   }, []);
 
-  return [refsArray.current, addToRefs];
+  return [refsArray, addToRefs];
 };
