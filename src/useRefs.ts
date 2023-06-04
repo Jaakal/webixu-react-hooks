@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, createRef } from 'react';
 import { RefObjects } from 'webixu-react-utils/lib/destructureRefs';
 export { RefObjects } from 'webixu-react-utils/lib/destructureRefs';
 
@@ -15,18 +15,20 @@ type ArrayRefs<T> = {
   >]: T[key];
 };
 
+type RefObjectOfArrayRefs<T> = {
+  [K in keyof T]: React.RefObject<T[K]>;
+};
+
 export const useRefs = <T extends {}>(
-  ...args: IsEmptyType<ArrayRefs<T>> extends true ? never : [ArrayRefs<T>]
+  ...args: IsEmptyType<ArrayRefs<T>> extends true
+    ? never
+    : [RefObjectOfArrayRefs<ArrayRefs<T>>]
 ): RefObjects<T> => {
   const refObjects = useRef<RefObjects<T>>(
-    new Proxy({} as RefObjects<T>, {
+    new Proxy((args[0] ? { ...args[0] } : {}) as RefObjects<T>, {
       get<K extends keyof T>(target: RefObjects<T>, property: string | symbol) {
-        if (args[0]?.[property as keyof ArrayRefs<T>]) {
-          return args[0]?.[property as keyof ArrayRefs<T>];
-        }
-
         if (!target[property as K]) {
-          target[property as K] = useRef<T[K]>() as React.RefObject<T[K]>;
+          target[property as K] = createRef<T[K]>() as React.RefObject<T[K]>;
         }
 
         return target[property as K];
